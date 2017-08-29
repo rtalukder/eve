@@ -9,7 +9,7 @@ MONGO_PASSWORD = 'password'
 
 # Skip these if your db has no auth. But it really should.
 
-MONGO_DBNAME = 'jupyter_notebooks'
+MONGO_DBNAME = 'web_client'
 
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
 # (if you omit this line, the API will default to ['GET'] and provide
