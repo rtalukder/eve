@@ -100,6 +100,6 @@ hourly = {
 }
 
 DOMAIN = {
-    'salaried': salaried,
+    "salaried": salaried,
     "hourly": hourly,
 }
