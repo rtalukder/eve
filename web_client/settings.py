@@ -20,6 +20,10 @@ RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 # individual items  (defaults to read-only item access).
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
+X_DOMAINS = '*'
+X_HEADERS = ['Authorization', 'If-Match', 'Access-Control-Expose-Headers', 'Content-Type', 'Pragma', 'Cache-Control']
+X_EXPOSE_HEADERS = ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
+
 # APi for users
 users = {
     # 'title' tag used in item links. Defaults to the resource title minus
@@ -40,7 +44,7 @@ users = {
     'cache_expires': 10,
 
     # most global settings can be overridden at resource level
-    'resource_methods': ['GET', 'POST'],
+    'resource_methods': ['GET', 'POST', 'DELETE'],
 
     'schema': {
         'firstname': {
@@ -69,23 +73,24 @@ users = {
         },
 
         "password": {
-            "type": "string"
+            "type": "string",
+            "unique": True
         },
 
         # 'role' is a list, and can only contain values from 'allowed'.
-       'role': {
-            'type': 'list',
-            'allowed': ["author", "contributor", "copy"],
-        },
+       # 'role': {
+       #      'type': 'list',
+       #      'allowed': ["author", "contributor", "copy"],
+       #  },
 
-        # An embedded 'strongly-typed' dictionary.
-        'location': {
-            'type': 'dict',
-            'schema': {
-                'address': {'type': 'string'},
-                'city': {'type': 'string'}
-            },
-        },
+       #  # An embedded 'strongly-typed' dictionary.
+       #  'location': {
+       #      'type': 'dict',
+       #      'schema': {
+       #          'address': {'type': 'string'},
+       #          'city': {'type': 'string'}
+       #      },
+       #  },
     }
 }
 
