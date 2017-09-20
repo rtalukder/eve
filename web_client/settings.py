@@ -27,13 +27,13 @@ X_EXPOSE_HEADERS = ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
 # APi for users
 users = {
     # 'title' tag used in item links. Defaults to the resource title minus
-    # the final, plural 's' (works fine in most cases but not for 'people')
+    # the final
     'item_title': 'user',
 
     # by default the standard item entry point is defined as
-    # '/people/<ObjectId>'. We leave it untouched, and we also enable an
+    # '/users/<ObjectId>'. We leave it untouched, and we also enable an
     # additional read-only entry point. This way consumers can also perform
-    # GET requests at '/people/<lastname>'.
+    # GET requests at '/users/<username>'.
     'additional_lookup': {
         'url': 'regex("[\w]+")',
         'field': 'username'
@@ -64,8 +64,9 @@ users = {
             'minlength': 3,
             "maxlength": 15,
             # talk about hard constraints! For the purpose of the demo
-            # 'lastname' is an API entry-point, so we need it to be unique.
+            # 'username' is an API entry-point, so we need it to be unique.
             'required': True,
+            "unique": True
 
             # line below commented for testing purposes. don't want to 
             # keep deleting documents in the 'users' collection
@@ -74,7 +75,7 @@ users = {
 
         "password": {
             "type": "string",
-            "unique": True
+            "required": True,
         },
 
         # 'role' is a list, and can only contain values from 'allowed'.
@@ -95,19 +96,21 @@ users = {
 }
 
 item = {
+    "MONGO_QUERY_BLACKLIST": ['$where'],
     "schema": {
+        # adding a basic item into the database
         "information": {
             "type": "string",
             "minlength": 1,
             "maxlength": 3000
         },
 
-        "message": {
+        # look for the entries this user has made
+        "username": {
             "type": "string"
         }
     }
 }
-
 
 DOMAIN = {
     'users': users,
